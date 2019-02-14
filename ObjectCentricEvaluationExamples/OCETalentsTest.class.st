@@ -14,7 +14,8 @@ OCETalentsTest >> installInstrumentation [
 		compile:
 			'name: aName
 	self tag: aName.
-	name := aName'
+	name := aName'.
+	p2 addTalent: talent
 ]
 
 { #category : #instrumentation }
