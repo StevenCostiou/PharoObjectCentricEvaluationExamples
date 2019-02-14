@@ -3,39 +3,37 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'p1',
-		'p2'
+		'p2',
+		'instrumenter'
 	],
 	#category : #ObjectCentricEvaluationExamples
 }
 
-{ #category : #instrumentation }
-OCEObjectCentricInstrumentationTest >> installInstrumentation [
-	self subclassResponsibility 
-]
-
 { #category : #running }
-OCEObjectCentricInstrumentationTest >> setUp [
-	p1 := OCEPerson new.
-	p2 := OCEPerson new.
-	self installInstrumentation
-]
-
-{ #category : #running }
-OCEObjectCentricInstrumentationTest >> tearDown [
-	self uninstallInstrumentation.
-	p1 := OCEPerson new.
-	p2 := OCEPerson new
-]
-
-{ #category : #running }
-OCEObjectCentricInstrumentationTest >> testObjectCentricInstrumentation [
+OCEObjectCentricInstrumentationTest >> assertObjectCentricInstrumentation [
 	p1 name: 'Worf'.
 	p2 name: 'Dax'.
 	self assert: p1 tag isNil.
 	self assert: p2 tag equals: 'Dax'
 ]
 
-{ #category : #instrumentation }
-OCEObjectCentricInstrumentationTest >> uninstallInstrumentation [
-	self subclassResponsibility
+{ #category : #running }
+OCEObjectCentricInstrumentationTest >> setUp [
+	p1 := OCEPerson new.
+	p2 := OCEPerson new.
+	instrumenter := OCEInstrumenter new
+]
+
+{ #category : #running }
+OCEObjectCentricInstrumentationTest >> tearDown [
+	p1 := OCEPerson new.
+	p2 := OCEPerson new
+]
+
+{ #category : #running }
+OCEObjectCentricInstrumentationTest >> testTalentInstrumentation [
+	|instrumentation|
+	instrumentation := instrumenter instrumentWithTalent: p2.
+	self assertObjectCentricInstrumentation.
+	instrumenter removeTalentInstrumentation: instrumentation from: p2
 ]

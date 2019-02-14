@@ -4,8 +4,8 @@ Class {
 	#category : #ObjectCentricEvaluationExamples
 }
 
-{ #category : #'as yet unclassified' }
-OCEInstrumenter class >> instrumentWithTalent: anObject [
+{ #category : #talents }
+OCEInstrumenter >> instrumentWithTalent: anObject [
 	|talent|
 	talent := Trait named: 'MyTalent'.
 	talent
@@ -15,4 +15,9 @@ OCEInstrumenter class >> instrumentWithTalent: anObject [
 	name := aName'.
 	anObject addTalent: talent.
 	^talent
+]
+
+{ #category : #talents }
+OCEInstrumenter >> removeTalentInstrumentation: talent from: anObject [
+	anObject removeTalent: talent
 ]
