@@ -4,6 +4,19 @@ Class {
 	#category : #ObjectCentricEvaluationExamples
 }
 
+{ #category : #'anonymous classes' }
+OCEInstrumenter >> instrumentWithAnonymousClass: anObject [
+	|anonClass|
+	anonClass := anObject class newAnonymousSubclass.
+	anonClass
+		compile:
+			'name: aName
+				self tag: aName.
+				name := aName'.
+	anonClass adoptInstance: anObject.
+	^anonClass
+]
+
 { #category : #talents }
 OCEInstrumenter >> instrumentWithTalent: anObject [
 	|talent|
@@ -15,6 +28,11 @@ OCEInstrumenter >> instrumentWithTalent: anObject [
 	name := aName'.
 	anObject addTalent: talent.
 	^talent
+]
+
+{ #category : #'anonymous classes' }
+OCEInstrumenter >> removeAnonymousClassInstrumentation: anonClass from: anObject [
+	anonClass superclass adoptInstance: anObject
 ]
 
 { #category : #talents }
