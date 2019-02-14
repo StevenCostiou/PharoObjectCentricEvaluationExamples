@@ -7,7 +7,7 @@ Class {
 { #category : #talents }
 OCEInstrumenter >> instrumentWithTalent: anObject [
 	|talent|
-	talent := Trait named: 'MyTalent'.
+	talent := Trait new.
 	talent
 		compile:
 			'name: aName
