@@ -16,7 +16,7 @@ BaselineOfObjectCentricEvaluationExamples >> baseline: spec [
 				baseline: 'Ghost-Mariano'
 				with: [ spec
 						loads: #('GhostProxies');
-						repository: 'https://gitlab.inria.fr/RMOD/Ghost' ].
+						repository: 'https://gitlab.inria.fr/RMOD/Ghost/src' ].
 			spec
 				baseline: 'Ghost'
 				with: [ spec repository: 'github://dionisiydk/Ghost:v3.1.x' ].
