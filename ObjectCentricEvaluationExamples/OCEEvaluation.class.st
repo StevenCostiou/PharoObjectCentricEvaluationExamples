@@ -39,9 +39,8 @@ OCEEvaluation >> evaluateGhost [
 OCEEvaluation >> evaluateOverheadFor: aPerson [
 	| execTimes |
 	execTimes := OrderedCollection new.
-	1000
-		timesRepeat: [ execTimes
-				add: [ 1000000 timesRepeat: [ aPerson name: 'eval' ] ] timeToRun ].
+	execTimes
+		add: [ 1000000 timesRepeat: [ aPerson name: 'eval' ] ] timeToRun.
 	^ execTimes average
 ]
 
