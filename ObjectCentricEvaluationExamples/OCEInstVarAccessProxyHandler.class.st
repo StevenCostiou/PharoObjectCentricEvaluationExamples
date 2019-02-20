@@ -4,6 +4,14 @@ Class {
 	#category : #ObjectCentricEvaluationExamples
 }
 
+{ #category : #'handle - API' }
+OCEInstVarAccessProxyHandler >> handleInterception: anInterception [
+	"Copy of the original method from GHProxyHandler, with removal of logging for performance overhead evaluation."
+	(self isMessageNotToIntercept: anInterception message)
+		ifTrue: [ ^ self manageMessageInternally: anInterception  ]
+	 	ifFalse: [ ^ self manageMessage: anInterception]
+]
+
 { #category : #'handle - support' }
 OCEInstVarAccessProxyHandler >> handleUninstall: anInterception [
 	^ anInterception proxy proxyTarget become: anInterception proxy.
@@ -16,11 +24,15 @@ OCEInstVarAccessProxyHandler >> manageMessage: interception [
 	proxy := interception proxy.
 	target := proxy proxyTarget.
 	message selector == #name:
-		ifTrue: [ 
-			message arguments crLog.
-			target tag: message arguments first ].
+		ifTrue: [ target tag: message arguments first ].
 	result := message sendTo: target.
 	^ result == target
 		ifTrue: [ proxy ]
 		ifFalse: [ result ]
+]
+
+{ #category : #'handle - API' }
+OCEInstVarAccessProxyHandler >> manageMessageInternally:  anInterception [
+	"Copy of the original method from GHProxyHandler, with removal of logging for performance overhead evaluation."
+	^ self perform: (self methodsNotToIntercept at: anInterception message selector) with: anInterception
 ]
