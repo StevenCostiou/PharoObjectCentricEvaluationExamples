@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #scripts }
+OCEEvaluation class >> evaluateGhost [
+	<script>
+	^self new evaluateGhost
+]
+
+{ #category : #scripts }
 OCEEvaluation class >> evaluateNonInstrumented [
 	<script>
 	^self new evaluateOverheadFor: OCEManuallyInstrumentedPerson new
@@ -17,6 +23,16 @@ OCEEvaluation class >> evaluateNonInstrumented [
 OCEEvaluation class >> evaluateTalents [
 	<script>
 	^self new evaluateTalents
+]
+
+{ #category : #evaluation }
+OCEEvaluation >> evaluateGhost [
+	| person proxy result |
+	person := OCEPerson new.
+	proxy := instrumenter instrumentWithGhost: person.
+	result := self evaluateOverheadFor: person.
+	instrumenter removeGhostInstrumentation: proxy from: person.
+	^ result
 ]
 
 { #category : #evaluation }
@@ -34,7 +50,7 @@ OCEEvaluation >> evaluateTalents [
 	| person talent result |
 	person := OCEPerson new.
 	talent := instrumenter instrumentWithTalent: person.
-	result := self evaluateOverheadFor: OCEPerson new.
+	result := self evaluateOverheadFor: person.
 	instrumenter removeTalentInstrumentation: talent from: person.
 	^ result
 ]
