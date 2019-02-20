@@ -20,7 +20,7 @@ OCEInstrumenter >> instrumentWithAnonymousClass: anObject [
 { #category : #ghost }
 OCEInstrumenter >> instrumentWithGhost: anObject [
 	| proxy |
-	proxy := GHTargetBasedProxy
+	proxy := OCETargetBasedProxy
 		createProxyAndReplace: anObject
 		handler: OCEInstVarAccessProxyHandler new.
 	^ proxy
