@@ -21,5 +21,5 @@ BaselineOfObjectCentricEvaluationExamples >> baseline: spec [
 			spec
 				description:
 					'Evaluation scripts and examples for Pharo object-centric instrumentation'.
-			spec package: 'ObjectCentricEvaluationExamples' ]
+			spec package: 'ObjectCentricEvaluationExamples' with: [spec requires: #('Talents' 'Ghost')]]
 ]
