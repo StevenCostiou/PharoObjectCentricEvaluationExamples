@@ -14,9 +14,7 @@ BaselineOfObjectCentricEvaluationExamples >> baseline: spec [
 				with: [ spec repository: 'github://tesonep/pharo-talents/src' ].
 			spec
 				baseline: 'Ghost'
-				with: [ spec
-						loads: #('GhostProxies');
-						repository: 'https://gitlab.inria.fr/RMOD/Ghost/src' ].
+				with: [ spec repository: 'gitlab://gitlab.inria.fr:RMOD/Ghost' ].
 			spec blessing: #baseline.
 			spec
 				repository: 'github://StevenCostiou/ObjectCentricEvaluationExamples'.
