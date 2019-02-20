@@ -17,6 +17,15 @@ OCEInstrumenter >> instrumentWithAnonymousClass: anObject [
 	^anonClass
 ]
 
+{ #category : #ghost }
+OCEInstrumenter >> instrumentWithGhost: anObject [
+	| proxy |
+	proxy := GHTargetBasedProxy
+		createProxyAndReplace: anObject
+		handler: OCEInstVarAccessProxyHandler new.
+	^ proxy
+]
+
 { #category : #talents }
 OCEInstrumenter >> instrumentWithTalent: anObject [
 	|talent|
@@ -33,6 +42,11 @@ OCEInstrumenter >> instrumentWithTalent: anObject [
 { #category : #'anonymous classes' }
 OCEInstrumenter >> removeAnonymousClassInstrumentation: anonClass from: anObject [
 	anonClass superclass adoptInstance: anObject
+]
+
+{ #category : #ghost }
+OCEInstrumenter >> removeGhostInstrumentation: proxy from: anObject [
+	proxy uninstall
 ]
 
 { #category : #talents }

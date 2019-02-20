@@ -18,6 +18,12 @@ OCEObjectCentricInstrumentationTest >> assertObjectCentricInstrumentation [
 ]
 
 { #category : #running }
+OCEObjectCentricInstrumentationTest >> assertObjectCentricInstrumentationRemoval [
+	p2 name: 'Jadzia'.
+	self assert: p2 tag equals: 'Dax'
+]
+
+{ #category : #running }
 OCEObjectCentricInstrumentationTest >> setUp [
 	p1 := OCEPerson new.
 	p2 := OCEPerson new.
@@ -31,9 +37,19 @@ OCEObjectCentricInstrumentationTest >> tearDown [
 ]
 
 { #category : #running }
+OCEObjectCentricInstrumentationTest >> testGhosttInstrumentation [
+	|instrumentation|
+	instrumentation := instrumenter instrumentWithGhost: p2.
+	self assertObjectCentricInstrumentation.
+	instrumenter removeGhostInstrumentation: instrumentation from: p2.
+	self assertObjectCentricInstrumentationRemoval
+]
+
+{ #category : #running }
 OCEObjectCentricInstrumentationTest >> testTalentInstrumentation [
 	|instrumentation|
 	instrumentation := instrumenter instrumentWithTalent: p2.
 	self assertObjectCentricInstrumentation.
-	instrumenter removeTalentInstrumentation: instrumentation from: p2
+	instrumenter removeTalentInstrumentation: instrumentation from: p2.
+	self assertObjectCentricInstrumentationRemoval
 ]
