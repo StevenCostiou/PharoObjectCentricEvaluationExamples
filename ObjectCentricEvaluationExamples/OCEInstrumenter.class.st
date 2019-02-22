@@ -33,7 +33,6 @@ OCEInstrumenter >> instrumentWithReflectivity: anObject [
 	link metaObject: #object.
 	link selector: #tag:.
 	link arguments: #(#newValue).
-	link control: #before.
 	anObject link: link toSlotNamed: #name option: #write.
 	^ link
 ]
