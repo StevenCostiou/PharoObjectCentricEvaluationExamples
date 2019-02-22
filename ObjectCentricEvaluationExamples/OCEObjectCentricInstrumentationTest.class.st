@@ -1,3 +1,8 @@
+"
+These tests prove that the instrumentation work and is object-centric.
+
+Two instance of OCEPerson are created and each time only one of them is instrumented.
+"
 Class {
 	#name : #OCEObjectCentricInstrumentationTest,
 	#superclass : #TestCase,

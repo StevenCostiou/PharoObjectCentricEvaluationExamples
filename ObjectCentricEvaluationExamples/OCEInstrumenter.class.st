@@ -1,3 +1,15 @@
+"
+Illustrates the instrumentation of an object with each of the following techniques:
+
+- read only objects,
+- anonymous subclasses,
+- Reflectivity metalinks,
+- Ghost proxies,
+- and Talents.
+
+Also illustrates instrumentation rollback.
+
+"
 Class {
 	#name : #OCEInstrumenter,
 	#superclass : #Object,

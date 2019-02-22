@@ -1,3 +1,6 @@
+"
+Trivial model to illustrate object-centric state access instrumentation.
+"
 Class {
 	#name : #OCEPerson,
 	#superclass : #Object,

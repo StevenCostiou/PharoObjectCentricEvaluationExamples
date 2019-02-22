@@ -1,3 +1,8 @@
+"
+Simple Ghost message handler:  which only intercept the #name: message sent to a proxified object, and executes instrumentation behavior before passing back the message to the proxified object.
+
+Only methods manageMessage: and handleUninstall: are relevant for the example. Other methods are reimplemented there to avoid Transcript logging during performance overhead evaluation.
+"
 Class {
 	#name : #OCEInstVarAccessProxyHandler,
 	#superclass : #GHProxyHandler,
