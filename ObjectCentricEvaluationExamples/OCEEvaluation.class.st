@@ -20,6 +20,12 @@ OCEEvaluation class >> evaluateNonInstrumented [
 ]
 
 { #category : #scripts }
+OCEEvaluation class >> evaluateReflectivity [
+	<script>
+	^self new evaluateReflectivity
+]
+
+{ #category : #scripts }
 OCEEvaluation class >> evaluateTalents [
 	<script>
 	^self new evaluateTalents
@@ -42,6 +48,16 @@ OCEEvaluation >> evaluateOverheadFor: aPerson [
 	execTimes
 		add: [ 1000000 timesRepeat: [ aPerson name: 'eval' ] ] timeToRun.
 	^ execTimes average
+]
+
+{ #category : #evaluation }
+OCEEvaluation >> evaluateReflectivity [
+	| person proxy result |
+	person := OCEPerson new.
+	proxy := instrumenter instrumentWithReflectivity: person.
+	result := self evaluateOverheadFor: person.
+	instrumenter removeReflectivityInstrumentation: proxy from: person.
+	^ result
 ]
 
 { #category : #evaluation }
