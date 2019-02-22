@@ -37,6 +37,15 @@ OCEObjectCentricInstrumentationTest >> tearDown [
 ]
 
 { #category : #running }
+OCEObjectCentricInstrumentationTest >> testAnonymousClassInstrumentation [
+	|instrumentation|
+	instrumentation := instrumenter instrumentWithAnonymousClass: p2.
+	self assertObjectCentricInstrumentation.
+	instrumenter removeAnonymousClassInstrumentation: instrumentation from: p2.
+	self assertObjectCentricInstrumentationRemoval
+]
+
+{ #category : #running }
 OCEObjectCentricInstrumentationTest >> testGhosttInstrumentation [
 	|instrumentation|
 	instrumentation := instrumenter instrumentWithGhost: p2.

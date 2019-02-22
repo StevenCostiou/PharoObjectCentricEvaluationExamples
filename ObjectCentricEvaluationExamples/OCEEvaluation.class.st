@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #scripts }
+OCEEvaluation class >> evaluateAnonsubclasses [
+	<script>
+	^self new evaluateAnonsubclasses
+]
+
+{ #category : #scripts }
 OCEEvaluation class >> evaluateGhost [
 	<script>
 	^self new evaluateGhost
@@ -29,6 +35,16 @@ OCEEvaluation class >> evaluateReflectivity [
 OCEEvaluation class >> evaluateTalents [
 	<script>
 	^self new evaluateTalents
+]
+
+{ #category : #evaluation }
+OCEEvaluation >> evaluateAnonsubclasses [
+	| person anonClass result |
+	person := OCEPerson new.
+	anonClass := instrumenter instrumentWithAnonymousClass: person.
+	result := self evaluateOverheadFor: person.
+	instrumenter removeAnonymousClassInstrumentation: anonClass from: person.
+	^ result
 ]
 
 { #category : #evaluation }
