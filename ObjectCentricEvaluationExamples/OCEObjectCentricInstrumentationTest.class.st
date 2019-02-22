@@ -46,6 +46,15 @@ OCEObjectCentricInstrumentationTest >> testGhosttInstrumentation [
 ]
 
 { #category : #running }
+OCEObjectCentricInstrumentationTest >> testReflectivityInstrumentation [
+	|instrumentation|
+	instrumentation := instrumenter instrumentWithReflectivity: p2.
+	self assertObjectCentricInstrumentation.
+	instrumenter removeReflectivityInstrumentation: instrumentation from: p2.
+	self assertObjectCentricInstrumentationRemoval
+]
+
+{ #category : #running }
 OCEObjectCentricInstrumentationTest >> testTalentInstrumentation [
 	|instrumentation|
 	instrumentation := instrumenter instrumentWithTalent: p2.

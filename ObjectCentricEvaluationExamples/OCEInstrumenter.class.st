@@ -26,6 +26,18 @@ OCEInstrumenter >> instrumentWithGhost: anObject [
 	^ proxy
 ]
 
+{ #category : #reflectivity }
+OCEInstrumenter >> instrumentWithReflectivity: anObject [
+	| link |
+	link := MetaLink new.
+	link metaObject: #object.
+	link selector: #tag:.
+	link arguments: #(#newValue).
+	link control: #before.
+	anObject link: link toSlotNamed: #name option: #write.
+	^ link
+]
+
 { #category : #talents }
 OCEInstrumenter >> instrumentWithTalent: anObject [
 	|talent|
@@ -47,6 +59,11 @@ OCEInstrumenter >> removeAnonymousClassInstrumentation: anonClass from: anObject
 { #category : #ghost }
 OCEInstrumenter >> removeGhostInstrumentation: proxy from: anObject [
 	proxy uninstall
+]
+
+{ #category : #reflectivity }
+OCEInstrumenter >> removeReflectivityInstrumentation: link from: anObject [
+	link uninstall
 ]
 
 { #category : #talents }
