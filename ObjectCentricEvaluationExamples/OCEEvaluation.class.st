@@ -14,6 +14,12 @@ OCEEvaluation class >> evaluateAnonsubclasses [
 ]
 
 { #category : #scripts }
+OCEEvaluation class >> evaluateChangeDetector [
+	<script>
+	^self new evaluateChangeDetector
+]
+
+{ #category : #scripts }
 OCEEvaluation class >> evaluateGhost [
 	<script>
 	^self new evaluateGhost
@@ -44,6 +50,16 @@ OCEEvaluation >> evaluateAnonsubclasses [
 	anonClass := instrumenter instrumentWithAnonymousClass: person.
 	result := self evaluateOverheadFor: person.
 	instrumenter removeAnonymousClassInstrumentation: anonClass from: person.
+	^ result
+]
+
+{ #category : #evaluation }
+OCEEvaluation >> evaluateChangeDetector [
+	| person result |
+	person := OCEPerson new.
+	instrumenter instrumentWithReadOnly: person.
+	result := self evaluateOverheadFor: person.
+	instrumenter removeReadOnlyInstrumentationFrom: person.
 	^ result
 ]
 

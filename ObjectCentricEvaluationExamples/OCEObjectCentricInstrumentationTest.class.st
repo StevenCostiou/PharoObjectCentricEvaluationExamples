@@ -16,7 +16,7 @@ Class {
 
 { #category : #running }
 OCEObjectCentricInstrumentationTest >> assertObjectCentricInstrumentation [
-	p1 name: 'Worf'.
+	p1 name: 'Worf'.	
 	p2 name: 'Dax'.
 	self assert: p1 tag isNil.
 	self assert: p2 tag equals: 'Dax'
@@ -56,6 +56,14 @@ OCEObjectCentricInstrumentationTest >> testGhosttInstrumentation [
 	instrumentation := instrumenter instrumentWithGhost: p2.
 	self assertObjectCentricInstrumentation.
 	instrumenter removeGhostInstrumentation: instrumentation from: p2.
+	self assertObjectCentricInstrumentationRemoval
+]
+
+{ #category : #running }
+OCEObjectCentricInstrumentationTest >> testReadOnlyInstrumentation [
+	instrumenter instrumentWithReadOnly: p2.
+	self assertObjectCentricInstrumentation.
+	instrumenter removeReadOnlyInstrumentationFrom: p2.
 	self assertObjectCentricInstrumentationRemoval
 ]
 

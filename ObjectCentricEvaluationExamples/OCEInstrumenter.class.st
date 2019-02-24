@@ -13,6 +13,9 @@ Also illustrates instrumentation rollback.
 Class {
 	#name : #OCEInstrumenter,
 	#superclass : #Object,
+	#instVars : [
+		'announcer'
+	],
 	#category : #ObjectCentricEvaluationExamples
 }
 
@@ -36,6 +39,12 @@ OCEInstrumenter >> instrumentWithGhost: anObject [
 		createProxyAndReplace: anObject
 		handler: OCEInstVarAccessProxyHandler new.
 	^ proxy
+]
+
+{ #category : #'read-only' }
+OCEInstrumenter >> instrumentWithReadOnly: anObject [
+	anObject notifyOnChange: self.
+	^ self
 ]
 
 { #category : #reflectivity }
@@ -62,6 +71,17 @@ OCEInstrumenter >> instrumentWithTalent: anObject [
 	^talent
 ]
 
+{ #category : #'read-only' }
+OCEInstrumenter >> objectChangeNotifiedBy: modification [
+	| object |
+	object := modification object.
+	(object class instVarNameForIndex: modification fieldIndex) = #name
+		ifFalse: [ ^ self ].
+	object beWritableObject.
+	object tag: modification newValue.
+	object beReadOnlyObject
+]
+
 { #category : #'anonymous classes' }
 OCEInstrumenter >> removeAnonymousClassInstrumentation: anonClass from: anObject [
 	anonClass superclass adoptInstance: anObject
@@ -70,6 +90,11 @@ OCEInstrumenter >> removeAnonymousClassInstrumentation: anonClass from: anObject
 { #category : #ghost }
 OCEInstrumenter >> removeGhostInstrumentation: proxy from: anObject [
 	proxy uninstall
+]
+
+{ #category : #'read-only' }
+OCEInstrumenter >> removeReadOnlyInstrumentationFrom: anObject [
+	anObject stopNotifyOnChange: self
 ]
 
 { #category : #reflectivity }
