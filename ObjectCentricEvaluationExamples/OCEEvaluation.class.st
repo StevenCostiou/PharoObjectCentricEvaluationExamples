@@ -8,6 +8,31 @@ Class {
 }
 
 { #category : #scripts }
+OCEEvaluation class >> evaluateAll [
+	<script>
+	|reference anonClasses ghost talents reflectivity changeDetector results|
+	reference := self evaluateNonInstrumented.
+	Smalltalk garbageCollect.
+	anonClasses := self evaluateAnonsubclasses.
+	Smalltalk garbageCollect.
+	ghost := self evaluateGhost.
+	Smalltalk garbageCollect.
+	talents := self evaluateTalents.
+	Smalltalk garbageCollect.
+	reflectivity := self evaluateReflectivity.
+	Smalltalk garbageCollect.
+	changeDetector := self evaluateChangeDetector.
+	results := Dictionary new.
+	results at: 'Reference' put: {reference. reference/reference. }.	
+	results at: 'Anonymous Classes' put: {anonClasses. (anonClasses/reference) asFloat }.
+	results at: 'Ghost' put: {ghost. (ghost/reference) asFloat }.
+	results at: 'MetaLink' put: {reflectivity. (reflectivity/reference) asFloat }.
+	results at: 'Talents' put: {talents. (talents/reference) asFloat }.	
+	results at: 'Change Detector' put: {changeDetector. (changeDetector/reference) asFloat  }.
+	results inspect
+]
+
+{ #category : #scripts }
 OCEEvaluation class >> evaluateAnonsubclasses [
 	<script>
 	^self new evaluateAnonsubclasses
@@ -75,11 +100,7 @@ OCEEvaluation >> evaluateGhost [
 
 { #category : #evaluation }
 OCEEvaluation >> evaluateOverheadFor: aPerson [
-	| execTimes |
-	execTimes := OrderedCollection new.
-	execTimes
-		add: [ 1000000 timesRepeat: [ aPerson name: 'eval' ] ] timeToRun.
-	^ execTimes average
+	^ [ 100000000 timesRepeat: [ aPerson name: 'eval' ] ] timeToRun
 ]
 
 { #category : #evaluation }

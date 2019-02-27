@@ -77,9 +77,7 @@ OCEInstrumenter >> objectChangeNotifiedBy: modification [
 	object := modification object.
 	(object class instVarNameForIndex: modification fieldIndex) = #name
 		ifFalse: [ ^ self ].
-	object beWritableObject.
-	object tag: modification newValue.
-	object beReadOnlyObject
+	object tag: modification newValue
 ]
 
 { #category : #'anonymous classes' }
